@@ -12,3 +12,6 @@ endpoints:
 quickstart:
   generateOrderPeriod: 10s
   processOrderPeriod: 30s
+baeldung:
+  api:
+    path: '/camel'
