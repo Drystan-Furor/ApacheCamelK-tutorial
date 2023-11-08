@@ -1,5 +1,6 @@
 package camel.k.tutorial;
 
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -36,6 +37,14 @@ public class RestApi extends RouteBuilder {
                 .bindingMode(RestBindingMode.json_xml)
                 .type(MyBean.class)
                 .to("direct:remoteService");
+
+        from("direct:remoteService")
+                .routeId("direct-route")
+                .tracing()
+                .log(">>> ${body.id}")
+                .log(">>> ${body.name}")
+                .transform().simple("Hello ${in.body.name}")
+                .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200));
 
         // Additional route definitions...
     }
