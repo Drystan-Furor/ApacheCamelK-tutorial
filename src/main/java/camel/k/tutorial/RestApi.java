@@ -29,6 +29,14 @@ public class RestApi extends RouteBuilder {
                 .component("servlet")
                 .bindingMode(RestBindingMode.json);
 
+        rest("/api/")
+                .id("api-route")
+                .consumes("application/json")
+                .post("/bean")
+                .bindingMode(RestBindingMode.json_xml)
+                .type(MyBean.class)
+                .to("direct:remoteService");
+
         // Additional route definitions...
     }
 }
