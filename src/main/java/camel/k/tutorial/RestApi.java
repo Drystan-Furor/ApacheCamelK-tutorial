@@ -57,4 +57,15 @@ Camel always needs a CamelContext instance – the core component where the inco
 
 In this simple example, DefaultCamelContext suffices as it just binds messages and routes into it,
 like the REST service that we are going to create.
+
+
+The from() method follows the same principles and has many of the same methods as the rest() method, except that it consumes from the Camel context messages. This is the reason for the parameter “direct-route“, that creates a link to the aforementioned method rest().to().
+
+Many other conversions are available, including extraction as Java primitives (or objects) and sending it down to a persistence layer. Notice that the routes always read from incoming messages, so that chained routes will ignore outgoing messages.
+
+Our example is ready, and we can try it:
+
+Run the prompt command: mvn spring-boot:run
+Do a POST request to http://localhost:8080/camel/api/bean with header parameters: Content-Type: application/json, and a payload {“id”: 1,”name”: “World”}
+We should receive a return code of 201 and the response: Hello, World
  */
